@@ -1,0 +1,9 @@
+﻿@model string
+<div class="text-center">
+    <h2 class="display-4">This is your shortened link:</h2>
+    <h1 class="display-4">@Model</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h3 class="text-danger">History for this link is saved in cookies.</h3>
+    }
+</div>

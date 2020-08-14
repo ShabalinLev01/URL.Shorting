@@ -1,0 +1,22 @@
+﻿@model List<Urls>
+<table class="table">
+    <tr>
+        <td>URL</td>
+        <td>Shorting URL</td>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <td>Number of clicks</td>
+        }
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a class="nav-link " href="@item.Url">@item.Url</a></td>
+            <td><a class="nav-link " href="@item.ShortUrl">@item.ShortUrl</a></td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>@item.NumOfClick</td>
+            }
+        </tr>
+    }
+</table>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Welcom!";
+}
+
+<div class="text-center">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h1 class="display-4">Hello user!</h1>
+        <h3 class="text-danger">For the service to work properly, you need authorization in the system.</h3>
+        <p class="text-danger">Unauthorized users can generate their links and view their history.<br>
+            Generation history will be stored in browser cookies and may be lost.<br>
+            When the user is authorized, the data from the cookies will be imported into the database</p>
+    }
+    else
+    {
+        <h1 class="display-4">Welcome, @User.Identity.Name!</h1>
+    }
+</div>

@@ -1,0 +1,21 @@
+﻿@model URL.Shorting.ViewModels.GenerationViewModel
+@{
+    ViewData["Title"] = "Generate URL";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-6">
+        <section>
+            <form id="generation" method="post">
+                <div class="form-group">
+                    <label asp-for="Url"></label><br />
+                    <input asp-for="Url" />
+                    <span asp-validation-for="Url"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Generate</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
