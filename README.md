@@ -1,6 +1,6 @@
 # URL.Shorting
 For successful database migration use:
 
-Add-Migration AppContext -Context ApplicationContext
+1)Add-Migration AppContext -Context ApplicationContext
 
-Update-Database -Context ApplicationContext
+2)Update-Database -Context ApplicationContext
