@@ -10,7 +10,7 @@ using URL.Shorting.Data;
 namespace URL.Shorting.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200814184911_AppContext")]
+    [Migration("20200818072150_AppContext")]
     partial class AppContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
