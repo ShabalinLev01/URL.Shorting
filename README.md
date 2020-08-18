@@ -1,6 +1,8 @@
 # URL.Shorting
 For successful database migration use in package manager console:
 
-Update-Database -Context ApplicationContext
+1)Add-Migration AppContext -Context ApplicationContext
+
+2)Update-Database -Context ApplicationContext
 
 
