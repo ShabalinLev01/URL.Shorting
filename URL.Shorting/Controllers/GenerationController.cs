@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using URL.Shorting.Data;
 using URL.Shorting.Models;
 using URL.Shorting.Services;
 using URL.Shorting.ViewModels;
@@ -11,10 +12,10 @@ namespace URL.Shorting.Controllers
     public class GenerationController : Controller
     {
 
-        private UrlContext _db;
+        private readonly ApplicationContext _db;
         private readonly UrlService _urlService;
 
-        public GenerationController(UrlContext db, UrlService urlService)
+        public GenerationController(ApplicationContext db, UrlService urlService)
         {
             _db = db;
             _urlService = urlService;

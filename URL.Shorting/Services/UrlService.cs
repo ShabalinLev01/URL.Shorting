@@ -2,13 +2,14 @@
 using System.Linq;
 using URL.Shorting.Models;
 using Microsoft.AspNetCore.Http;
+using URL.Shorting.Data;
 
 namespace URL.Shorting.Services
 {
     public class UrlService
     {
-        private UrlContext _db;
-        public UrlService(UrlContext context)
+        private readonly ApplicationContext _db;
+        public UrlService(ApplicationContext context)
         {
             _db = context;
         }
@@ -17,7 +18,7 @@ namespace URL.Shorting.Services
         public void AddUrl(Urls urls, HttpContext context)
         {
             _db.UrlTable.Add(urls);
-            _db.SaveChangesAsync();
+            _db.SaveChanges();
             context.Response.Cookies.Append(urls.ShortUrl, urls.ShortUrl);
         }
 

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using URL.Shorting.Data;
 using URL.Shorting.Models;
 using URL.Shorting.Services;
 using URL.Shorting.ViewModels;
@@ -13,9 +14,9 @@ namespace URL.Shorting.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly UrlService _urlService;
-        private readonly UrlContext _db;
+        private readonly ApplicationContext _db;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UrlService urlService, UrlContext db)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UrlService urlService, ApplicationContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
