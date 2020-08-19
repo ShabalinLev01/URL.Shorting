@@ -1,5 +1,7 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -43,12 +45,6 @@ namespace URL.Shorting
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
- 
-            app.UseRouting();
- 
-            app.UseAuthentication();
-            app.UseAuthorization();
             
             app.Use(async (context, next) =>
             {
@@ -59,6 +55,14 @@ namespace URL.Shorting
                     await next();
                 }
             });
+            
+            app.UseStaticFiles();
+ 
+            app.UseRouting();
+            
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
