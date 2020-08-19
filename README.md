@@ -1,8 +1,7 @@
 # URL.Shorting
-For successful database migration use in package manager console:
+If at the first start all tables were not created, then use:
 
-1)Add-Migration AppContext -Context ApplicationContext
+1) Add-Migration AppContext -Context ApplicationContext
 
-2)Update-Database -Context ApplicationContext
-
+2) Update-Database -Context ApplicationContext
 
