@@ -11,12 +11,12 @@ namespace URL.Shorting.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UrlService _urlService;
         private readonly ApplicationContext _db;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UrlService urlService, ApplicationContext db)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, UrlService urlService, ApplicationContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,7 +35,7 @@ namespace URL.Shorting.Controllers
         {
             if(ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Username};
+                IdentityUser user = new IdentityUser() { Email = model.Email, UserName = model.Username};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
