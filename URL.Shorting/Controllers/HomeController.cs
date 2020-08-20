@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using URL.Shorting.Data;
 using URL.Shorting.Models;
 
@@ -22,20 +23,17 @@ namespace URL.Shorting.Controllers
         
         public IActionResult RedirectLink()
         {
-            string url = HttpContext.Request.Path.ToString();
-            url = url.Replace("/Home/RedirectLink/", "");
-            url.Trim();
-            if (_db.UrlTable.FirstOrDefault(x => x.ShortUrl == url)?.Url != null)
+            string urlShort = HttpContext.Request.Path.ToString();
+            urlShort = urlShort.Replace("/Home/RedirectLink/", "");
+            urlShort.Trim();
+            var getUrl = _db.UrlTable.FirstOrDefault(x=> x.ShortUrl == urlShort);
+            if (getUrl?.Url != null)
             {
-                var numOfClick = _db.UrlTable.FirstOrDefault(x => x.ShortUrl == url)?.NumOfClick;
-                if (numOfClick != null)
-                {
-                    numOfClick += 1;
-                    _db.UrlTable.FirstOrDefault(x => x.ShortUrl == url).NumOfClick = (int) numOfClick;
-                    _db.SaveChanges();
-                }
-                string longUrl = _db.UrlTable.FirstOrDefault(x => x.ShortUrl == url)?.Url;
-                return Redirect(longUrl);
+                var numOfClick = getUrl.NumOfClick;
+                numOfClick += 1;
+                _db.UrlTable.FirstOrDefault(x=> x.ShortUrl == urlShort).NumOfClick = (int) numOfClick;
+                _db.SaveChanges();
+                return Redirect(getUrl.Url);
             }
             else
             {
