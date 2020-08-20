@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
 using URL.Shorting.Data;
-using URL.Shorting.Models;
 
 namespace URL.Shorting.Controllers
 {
@@ -16,22 +14,21 @@ namespace URL.Shorting.Controllers
             _db = db;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
         
-        public IActionResult RedirectLink()
+        [HttpGet]
+        public IActionResult RedirectLink(string id) // ID is short url 
         {
-            string urlShort = HttpContext.Request.Path.ToString();
-            urlShort = urlShort.Replace("/Home/RedirectLink/", "");
-            urlShort.Trim();
-            var getUrl = _db.UrlTable.FirstOrDefault(x=> x.ShortUrl == urlShort);
+            var getUrl = _db.UrlTable.FirstOrDefault(x=> x.ShortUrl == id);
             if (getUrl?.Url != null)
             {
                 var numOfClick = getUrl.NumOfClick;
                 numOfClick += 1;
-                _db.UrlTable.FirstOrDefault(x=> x.ShortUrl == urlShort).NumOfClick = (int) numOfClick;
+                _db.UrlTable.FirstOrDefault(x=> x.ShortUrl == id).NumOfClick = (int) numOfClick;
                 _db.SaveChanges();
                 return Redirect(getUrl.Url);
             }
@@ -41,6 +38,7 @@ namespace URL.Shorting.Controllers
             }
         }
 
+        [Route("/Error")]
         [HttpGet]
         public IActionResult Error()
         {

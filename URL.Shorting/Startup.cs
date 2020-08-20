@@ -1,14 +1,11 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using URL.Shorting.Data;
-using URL.Shorting.Models;
 using URL.Shorting.Services;
 
 namespace URL.Shorting
@@ -32,7 +29,6 @@ namespace URL.Shorting
                 .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddTransient<UrlService>();
-            services.AddMemoryCache();
             
             services.AddControllersWithViews();
         }
@@ -43,7 +39,7 @@ namespace URL.Shorting
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
             
             app.Use(async (context, next) =>
@@ -51,13 +47,19 @@ namespace URL.Shorting
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/Home/RedirectLink"+ context.Request.Path.ToString();
+                    if (context.Request.Path.ToString().Length==9) //For short URL
+                    {
+                        context.Request.Path = "/Home/RedirectLink"+ context.Request.Path.ToString();
+                    }
+                    else
+                    {
+                        context.Request.Path = "/Error"; //Other error 404
+                    }
                     await next();
                 }
             });
             
             app.UseStaticFiles();
- 
             app.UseRouting();
             
             app.UseAuthentication();
